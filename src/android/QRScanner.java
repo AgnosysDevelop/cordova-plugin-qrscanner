@@ -616,7 +616,7 @@ public class QRScanner extends CordovaPlugin implements BarcodeCallback {
     }
 
     private void show(final CallbackContext callbackContext) {
-        hideBodyContent();
+        hideBodyContent(callbackContext);
         this.cordova.getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
