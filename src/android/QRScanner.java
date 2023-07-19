@@ -643,8 +643,26 @@ public class QRScanner extends CordovaPlugin implements BarcodeCallback {
             }
         });
     }
+    private void showBodyContent(final CallbackContext callbackContext) {
+        this.cordova.getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                String script = "javascript:(function() { " +
+                "var style = document.createElement('style'); " +
+                "style.type = 'text/css'; " +
+                "style.innerHTML = 'body { visibility: visible !important; }'; " +
+                "document.getElementsByTagName('head')[0].appendChild(style);" +
+                "})();";
+                webView.loadUrl(script);
+        
+                getStatus(callbackContext);
+            }
+        });
+    }
+    
     private void hide(final CallbackContext callbackContext) {
         makeOpaque();
+        showBodyContent(callbackContext);
         getStatus(callbackContext);
     }
 
